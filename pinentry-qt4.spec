@@ -5,13 +5,15 @@
 Summary:	Simple PIN or passphrase entry dialog for Qt
 Name:		pinentry-qt4
 Version:	0.1
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/unstable/snapshots/kdeplayground-pim-934819.tar.bz2
 # Source0-md5:	56cfb1b7a391001ae2e0c59501e1070f
 BuildRequires:	QtGui-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define	specflags	-DHAVE_MLOCK=1 -DHAVE_MMAP=1 -DCAPABILITIES=1 -DHAVE_SETEUID=1 -DHAVE_GETPAGESIZE=1
 
 %description
 Simple PIN or passphrase entry dialog for Qt.
@@ -28,15 +30,15 @@ cd pinentry-qt4
 install -d build
 cd build
 %cmake \
-		-DCMAKE_INSTALL_PREFIX=%{_prefix} \
-		-DLIB_INSTALL_DIR=%{_libdir} \
-		-DSYSCONF_INSTALL_DIR=%{_sysconfdir} \
-		-DCMAKE_BUILD_TYPE=%{!?debug:release}%{?debug:debug} \
-		-DKDE_DISTRIBUTION_TEXT="PLD-Linux" \
+	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
+	-DLIB_INSTALL_DIR=%{_libdir} \
+	-DSYSCONF_INSTALL_DIR=%{_sysconfdir} \
+	-DCMAKE_BUILD_TYPE=%{!?debug:release}%{?debug:debug} \
+	-DKDE_DISTRIBUTION_TEXT="PLD-Linux" \
 %if "%{_lib}" == "lib64"
-		-DLIB_SUFFIX=64 \
+	-DLIB_SUFFIX=64 \
 %endif
-		../
+	../
 
 %{__make}
 
