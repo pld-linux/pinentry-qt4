@@ -1,3 +1,7 @@
+#
+# TODO:
+# - build with system assuan
+#
 Summary:	Simple PIN or passphrase entry dialog for Qt
 Name:		pinentry-qt4
 Version:	0.1
